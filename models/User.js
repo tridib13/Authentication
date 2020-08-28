@@ -33,11 +33,11 @@ const userSchema = mongoose.Schema(
 
 })
 
-userSchema.pre('save', async next =>
+userSchema.pre('save', async function(next)
 {
     const user = this
 
-    user.password = await bcrypt.hash(user.password, process.env.BCRYPT_SECRET)
+    user.password = await bcrypt.hash(user.password, 8)
 
     next()
 })
