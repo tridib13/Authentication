@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true}, (client, error) => {
+const url = process.env.MONGO_URI
 
-    if(error)
-        throw new Error(error)
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true}, (client, error) => {
 
     console.log('Connected to database')
 })

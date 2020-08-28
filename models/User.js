@@ -19,17 +19,18 @@ const userSchema = mongoose.Schema(
     password: 
     {
         type: String,
-        trim:true,
+        trim: true,
         required: true
     },
     tokens:
-    [{
-        token:
+    [
         {
-            type: String,
-            required: true
-        }
-    }]
+            token:
+            {
+                type: String,
+                required: true
+            }
+        }]
 
 })
 
@@ -38,7 +39,8 @@ userSchema.pre('save', async function(next)
     const user = this
 
     user.password = await bcrypt.hash(user.password, 8)
-
+    console.log(user.password)
+    
     next()
 })
 

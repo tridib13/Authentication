@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const mongo_connection = require('./models/mongoose')
 const router = require('./routes/routes')

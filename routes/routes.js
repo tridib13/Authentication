@@ -7,6 +7,8 @@ router.post('/signup/', async (req, res) =>
 
     try 
     {
+        user.markModified('password')
+        console.log('saving')
         await user.save()
     } 
     catch (error) 
