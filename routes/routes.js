@@ -24,4 +24,17 @@ router.post('/signup/', async (req, res) =>
     res.send(user)
 })
 
+router.post('/login/', async (req, res) => 
+{
+    const { email, password } = req.body
+
+    const user = await User.findByCredentials(email, password)
+
+    if(user.error)
+        return res.send({error: 'No such user exists' })
+
+    res.send(user)
+    
+})
+
 module.exports = router
