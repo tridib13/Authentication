@@ -3,9 +3,9 @@ const User = require('../models/User')
 
 router.post('/signup/', async (req, res) => 
 {
-    const existingUser = await User.find({email: req.body.email})
+    const existingUser = await User.findOne({email: req.body.email})
     
-    if(existingUser.length)
+    if(existingUser)
     {
         return res.send({error: 'User already exists!'})
     }
@@ -30,8 +30,10 @@ router.post('/login/', async (req, res) =>
 
     const user = await User.findByCredentials(email, password)
 
-    if(user.error)
+    if(!user)
         return res.send({error: 'No such user exists' })
+
+    user.generateAuthToken()
 
     res.send(user)
     
