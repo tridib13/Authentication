@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const User = require('../models/User')
+const auth = require('../middleware/auth')
 
-router.post('/signup/', async (req, res) => 
+router.post('/signup', async (req, res) => 
 {
     const existingUser = await User.findOne({email: req.body.email})
     
@@ -24,7 +25,7 @@ router.post('/signup/', async (req, res) =>
     res.send(user)
 })
 
-router.post('/login/', async (req, res) => 
+router.post('/login', async (req, res) => 
 {
     const { email, password } = req.body
 
@@ -37,6 +38,11 @@ router.post('/login/', async (req, res) =>
 
     res.send(user)
     
+})
+
+router.get('/profile', auth, async (req, res) =>
+{
+    res.send(req.user)
 })
 
 module.exports = router
