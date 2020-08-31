@@ -73,6 +73,15 @@ userSchema.methods.generateAuthToken = async function()
     return token
 }
 
+userSchema.methods.logout = async function(activeToken)
+{
+    const user = this
+    
+    user.tokens = user.tokens.filter(tokenObj => tokenObj.token !== activeToken)
+
+    await user.save()
+}
+
 userSchema.methods.toJSON = function()
 {
     const user = this

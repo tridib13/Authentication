@@ -45,4 +45,14 @@ router.get('/profile', auth, async (req, res) =>
     res.send(req.user)
 })
 
+router.get('/logout', auth, async (req, res) => 
+{
+    const { user } = req
+    const token = req.header('Authorization').replace('Bearer ', '')
+
+    user.logout(token)
+
+    res.send({'message': 'successfully logged out'})
+})
+
 module.exports = router
